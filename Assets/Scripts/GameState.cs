@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GameState : MonoBehaviour
 {
+    public static string GameVersion = "0.1";
     public static bool IsShooting = false;
     public static bool IsMine
     {

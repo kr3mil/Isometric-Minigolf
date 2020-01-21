@@ -2180,6 +2180,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1de31896fef84b24e8e031eb3a7654d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MultiplayerButton: {fileID: 1117128083}
 --- !u!1 &1117128081
 GameObject:
   m_ObjectHideFlags: 0
@@ -2256,7 +2257,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 153425517}
   m_OnClick:
     m_PersistentCalls:
