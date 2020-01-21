@@ -127,4 +127,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c22d14d309eea3140bf03f77d906f99a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  LevelParent: {fileID: 0}
   Target: {fileID: 0}
+  m_OtherTarget: {x: 0, y: 0, z: 0}

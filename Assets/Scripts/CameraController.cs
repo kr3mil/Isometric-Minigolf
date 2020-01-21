@@ -6,26 +6,30 @@ public class CameraController : MonoBehaviour
 {
     private Vector3 m_TargetRotation;
     private float m_FollowSpeed = 2f;
-    public GameObject LevelParent;
-    public Transform Target;
+    private GameObject m_LevelParent;
+    private GameObject m_Player;
     [SerializeField] private Vector3 m_OtherTarget;
     private bool m_FollowPlayer = true;
+    private Camera m_MainCamera;
 
     private void Start()
     {
+        m_MainCamera = Camera.main;
         m_TargetRotation = transform.eulerAngles;
-        m_OtherTarget = GetCenterOfChildren(LevelParent);
+        m_Player = GameObject.FindGameObjectWithTag("Player");
+        m_OtherTarget = GetCenterOfChildren(GameObject.FindGameObjectWithTag("LevelParent"));
     }
     void Update()
     {
         CheckCameraInput();
+        CheckZoom();
         transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(m_TargetRotation), 60 * Time.deltaTime);
     }
 
     private void LateUpdate()
     {
         if (m_FollowPlayer)
-            FollowTarget(Target.position);
+            FollowTarget(m_Player.transform.position);
         else
             FollowTarget(m_OtherTarget);
 
@@ -45,6 +49,15 @@ public class CameraController : MonoBehaviour
             {
                 m_TargetRotation.y -= 90;
             }
+        }
+    }
+
+    private void CheckZoom()
+    {
+        if (Input.mouseScrollDelta.y != 0 && Input.GetKey(KeyCode.LeftControl))
+        {
+            m_MainCamera.orthographicSize -= Input.mouseScrollDelta.y * Time.deltaTime * 15f;
+            m_MainCamera.orthographicSize = Mathf.Clamp(m_MainCamera.orthographicSize, .5f, 20f);
         }
     }
 
