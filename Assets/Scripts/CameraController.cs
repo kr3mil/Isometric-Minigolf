@@ -1,0 +1,65 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class CameraController : MonoBehaviour
+{
+    private Vector3 m_TargetRotation;
+    private float m_FollowSpeed = 2f;
+    public GameObject LevelParent;
+    public Transform Target;
+    [SerializeField] private Vector3 m_OtherTarget;
+    private bool m_FollowPlayer = true;
+
+    private void Start()
+    {
+        m_TargetRotation = transform.eulerAngles;
+        m_OtherTarget = GetCenterOfChildren(LevelParent);
+    }
+    void Update()
+    {
+        CheckCameraInput();
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(m_TargetRotation), 60 * Time.deltaTime);
+    }
+
+    private void LateUpdate()
+    {
+        if (m_FollowPlayer)
+            FollowTarget(Target.position);
+        else
+            FollowTarget(m_OtherTarget);
+
+        if (Input.GetKeyDown(KeyCode.Q))
+            m_FollowPlayer = !m_FollowPlayer;
+    }
+
+    private void CheckCameraInput()
+    {
+        if (transform.rotation == Quaternion.Euler(m_TargetRotation))
+        {
+            if (Input.GetKeyDown(KeyCode.A))
+            {
+                m_TargetRotation.y += 90;
+            }
+            else if (Input.GetKeyDown(KeyCode.D))
+            {
+                m_TargetRotation.y -= 90;
+            }
+        }
+    }
+
+    private void FollowTarget(Vector3 pos)
+    {
+        transform.position = Vector3.Lerp(transform.position, pos, m_FollowSpeed * Time.deltaTime);
+    }
+
+    private Vector3 GetCenterOfChildren(GameObject parent)
+    {
+        var bounds = new Bounds();
+        foreach(Transform child in parent.transform)
+        {
+            bounds.Encapsulate(child.position);
+        }
+        return bounds.center;
+    }
+}
