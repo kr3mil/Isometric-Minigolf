@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour
     private LineRenderer m_LineRenderer;
     private Vector3 m_ShootDirection;
     private Rigidbody m_RigidBody;
-    private float m_ShotPower = 1f;
+    [SerializeField] private float m_ShotPower = 1f;
     private int m_ShotCount;
     void Start()
     {
@@ -22,13 +22,6 @@ public class PlayerController : MonoBehaviour
     {
         if (GameState.IsShooting)
         {
-            //if(transform.localEulerAngles != Vector3.zero)
-            //{
-            //    m_RigidBody.isKinematic = true;
-            //    transform.localEulerAngles = Vector3.zero;
-            //    m_RigidBody.isKinematic = false;
-            //}
-
             GetMousePos();
 
             if (Input.GetMouseButtonDown(0))
@@ -37,7 +30,7 @@ public class PlayerController : MonoBehaviour
             }
             else if (Input.mouseScrollDelta.y != 0 && !Input.GetKey(KeyCode.LeftControl))
             {
-                m_ShotPower += Input.mouseScrollDelta.y * .1f;
+                m_ShotPower = Mathf.Clamp(m_ShotPower += Input.mouseScrollDelta.y * .1f, .1f, 5f);
             }
         }
         else
