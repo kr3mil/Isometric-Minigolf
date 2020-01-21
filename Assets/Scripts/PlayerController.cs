@@ -28,7 +28,7 @@ public class PlayerController : MonoBehaviour
             {
                 Shoot();
             }
-            else if (Input.mouseScrollDelta.y != 0)
+            else if (Input.mouseScrollDelta.y != 0 && !Input.GetKey(KeyCode.LeftControl))
             {
                 m_ShotPower += Input.mouseScrollDelta.y * .1f;
             }

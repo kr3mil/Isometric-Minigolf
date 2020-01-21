@@ -10,9 +10,11 @@ public class CameraController : MonoBehaviour
     private GameObject m_Player;
     [SerializeField] private Vector3 m_OtherTarget;
     private bool m_FollowPlayer = true;
+    private Camera m_MainCamera;
 
     private void Start()
     {
+        m_MainCamera = Camera.main;
         m_TargetRotation = transform.eulerAngles;
         m_Player = GameObject.FindGameObjectWithTag("Player");
         m_OtherTarget = GetCenterOfChildren(GameObject.FindGameObjectWithTag("LevelParent"));
@@ -20,6 +22,7 @@ public class CameraController : MonoBehaviour
     void Update()
     {
         CheckCameraInput();
+        CheckZoom();
         transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(m_TargetRotation), 60 * Time.deltaTime);
     }
 
@@ -46,6 +49,15 @@ public class CameraController : MonoBehaviour
             {
                 m_TargetRotation.y -= 90;
             }
+        }
+    }
+
+    private void CheckZoom()
+    {
+        if (Input.mouseScrollDelta.y != 0 && Input.GetKey(KeyCode.LeftControl))
+        {
+            m_MainCamera.orthographicSize -= Input.mouseScrollDelta.y * Time.deltaTime * 15f;
+            m_MainCamera.orthographicSize = Mathf.Clamp(m_MainCamera.orthographicSize, .5f, 20f);
         }
     }
 
