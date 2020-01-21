@@ -12,4 +12,5 @@ public class GameState : MonoBehaviour
             return true;
         }
     }
+    public static bool IsOffline = true;
 }

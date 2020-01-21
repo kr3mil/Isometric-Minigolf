@@ -7,7 +7,7 @@ public class LevelManager : MonoBehaviour
     public GameObject PlayerPrefab;
 
     private Transform SpawnPoint;
-    private void Start()
+    private void Awake()
     {
         SpawnPoint = GameObject.FindGameObjectWithTag("StartPosition").transform;
         SpawnPlayer();
