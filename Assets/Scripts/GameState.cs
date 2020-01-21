@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Photon.Pun;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,5 +14,5 @@ public class GameState : MonoBehaviour
             return true;
         }
     }
-    public static bool IsOffline = true;
+    public static bool IsOffline = !PhotonNetwork.IsConnectedAndReady;
 }
