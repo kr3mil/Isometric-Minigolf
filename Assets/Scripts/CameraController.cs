@@ -6,15 +6,16 @@ public class CameraController : MonoBehaviour
 {
     private Vector3 m_TargetRotation;
     private float m_FollowSpeed = 2f;
-    public GameObject LevelParent;
-    public Transform Target;
+    private GameObject m_LevelParent;
+    private GameObject m_Player;
     [SerializeField] private Vector3 m_OtherTarget;
     private bool m_FollowPlayer = true;
 
     private void Start()
     {
         m_TargetRotation = transform.eulerAngles;
-        m_OtherTarget = GetCenterOfChildren(LevelParent);
+        m_Player = GameObject.FindGameObjectWithTag("Player");
+        m_OtherTarget = GetCenterOfChildren(GameObject.FindGameObjectWithTag("LevelParent"));
     }
     void Update()
     {
@@ -25,7 +26,7 @@ public class CameraController : MonoBehaviour
     private void LateUpdate()
     {
         if (m_FollowPlayer)
-            FollowTarget(Target.position);
+            FollowTarget(m_Player.transform.position);
         else
             FollowTarget(m_OtherTarget);
 
