@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour
     private Vector3 m_ShootDirection;
     private Rigidbody m_RigidBody;
     private float m_ShotPower = 1f;
-    private bool m_IsMoving = false;
+    private int m_ShotCount;
     void Start()
     {
         Cursor.lockState = CursorLockMode.Confined;
@@ -20,8 +20,15 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if (!m_IsMoving)
+        if (GameState.IsShooting)
         {
+            //if(transform.localEulerAngles != Vector3.zero)
+            //{
+            //    m_RigidBody.isKinematic = true;
+            //    transform.localEulerAngles = Vector3.zero;
+            //    m_RigidBody.isKinematic = false;
+            //}
+
             GetMousePos();
 
             if (Input.GetMouseButtonDown(0))
@@ -36,13 +43,12 @@ public class PlayerController : MonoBehaviour
         else
         {
             m_LineRenderer.enabled = false;
-            //transform.localEulerAngles = Vector3.zero;
         }
     }
 
     private void LateUpdate()
     {
-        m_IsMoving = m_RigidBody.velocity.magnitude > 0;
+        GameState.IsShooting = m_RigidBody.velocity.sqrMagnitude == 0;
     }
 
     private void GetMousePos()
@@ -64,7 +70,9 @@ public class PlayerController : MonoBehaviour
 
     private void Shoot()
     {
-        m_RigidBody.AddForce(transform.position + m_ShootDirection * m_ShotPower * 5, ForceMode.VelocityChange);
-        m_IsMoving = true;
+        m_RigidBody.rotation = Quaternion.identity;
+        m_RigidBody.AddForce(transform.position + m_ShootDirection * m_ShotPower * 5, ForceMode.Impulse);
+        m_ShotCount++;
+        //GameState.IsShooting = true;
     }
 }
