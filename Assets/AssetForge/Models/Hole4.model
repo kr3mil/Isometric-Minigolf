@@ -1,0 +1,29 @@
+# Made using Asset Forge (2.0 preview-1b)
+
+:materials
+
+[name:bricks;color:RGBA(1.000, 0.392, 0.306, 1.000);shader:Standard;valueA:0.35;valueB:0;]
+[name:foliage;color:RGBA(0.000, 0.655, 0.486, 1.000);shader:Standard;valueA:0.35;valueB:0;]
+[name:dark;color:RGBA(0.224, 0.235, 0.275, 1.000);shader:Standard;valueA:0.35;valueB:0;]
+
+:models
+
+[name:;collection:Golf;type:end;position:(0.0000, 1.2000, 0.0000);rotation:(0.0000, -0.0001, 0.0000);scale:(1.0000, 1.0000, 1.0000);group:;locked:False;hidden:False;materials:bricks+foliage;]
+[name:;collection:Golf;type:straight;position:(0.0000, 1.2000, 1.0000);rotation:(0.0000, 179.9999, 0.0000);scale:(1.0000, 1.0000, 1.0000);group:;locked:False;hidden:False;materials:bricks+foliage;]
+[name:;collection:Golf;type:straight;position:(0.0000, 1.2000, 2.0000);rotation:(0.0000, 179.9999, 0.0000);scale:(1.0000, 1.0000, 1.0000);group:;locked:False;hidden:False;materials:bricks+foliage;]
+[name:;collection:Golf;type:side;position:(0.0000, 1.2000, 3.0000);rotation:(0.0000, 179.9999, 0.0000);scale:(1.0000, 1.0000, 1.0000);group:;locked:False;hidden:False;materials:bricks+foliage;]
+[name:;collection:Golf;type:straight_obstacleSquare;position:(0.0000, 1.2000, 4.0000);rotation:(0.0000, 179.9999, 0.0000);scale:(1.0000, 1.0000, 1.0000);group:;locked:False;hidden:False;materials:bricks+foliage;]
+[name:;collection:Golf;type:straight;position:(0.0000, 1.2000, 5.0000);rotation:(0.0000, 179.9999, 0.0000);scale:(1.0000, 1.0000, 1.0000);group:;locked:False;hidden:False;materials:bricks+foliage;]
+[name:;collection:Golf;type:bend_large;position:(-1.0000, 1.2000, 7.0000);rotation:(0.0000, 90.0000, 0.0000);scale:(1.0004, 1.0000, 1.0004);group:;locked:False;hidden:False;materials:bricks+foliage;]
+[name:;collection:Golf;type:bend_large;position:(-3.0000, 1.2000, 6.0000);rotation:(0.0000, 0.0001, 0.0000);scale:(1.0000, 1.0000, 1.0000);group:;locked:False;hidden:False;materials:bricks+foliage;]
+[name:;collection:Golf;type:slope_straightC;position:(-3.0000, 0.6000, 5.0000);rotation:(0.0000, 179.9999, 0.0000);scale:(1.0000, 1.0000, 1.0000);group:;locked:False;hidden:False;materials:bricks+foliage;]
+[name:;collection:Golf;type:slope_straightC;position:(-3.0000, 0.0000, 4.0000);rotation:(0.0000, 179.9999, 0.0000);scale:(1.0000, 1.0000, 1.0000);group:;locked:False;hidden:False;materials:bricks+foliage;]
+[name:;collection:Golf;type:corner_innerDouble;position:(-3.0000, 0.0000, 3.0000);rotation:(0.0000, 179.9998, 0.0000);scale:(1.0000, 1.0000, 1.0000);group:;locked:False;hidden:False;materials:bricks+foliage;]
+[name:;collection:Golf;type:corner;position:(-4.0000, 0.0000, 3.0000);rotation:(0.0000, 0.0001, 0.0000);scale:(1.0000, 1.0000, 1.0000);group:;locked:False;hidden:False;materials:bricks+foliage;]
+[name:;collection:Golf;type:side;position:(-4.0000, 0.0000, 2.0000);rotation:(0.0000, -0.0001, 0.0000);scale:(1.0000, 1.0000, 1.0000);group:;locked:False;hidden:False;materials:bricks+foliage;]
+[name:;collection:Golf;type:open_hole;position:(-3.0000, 0.0000, 2.0000);rotation:(0.0000, 179.9999, 0.0000);scale:(1.0000, 1.0000, 1.0000);group:;locked:False;hidden:False;materials:foliage+bricks+dark;]
+[name:;collection:Golf;type:side;position:(-3.0000, 0.0000, 1.0000);rotation:(0.0000, 269.9999, 0.0000);scale:(1.0000, 1.0000, 1.0000);group:;locked:False;hidden:False;materials:bricks+foliage;]
+[name:;collection:Golf;type:bend_cornerEdgeOpen%;position:(-4.0000, 0.0000, 1.0000);rotation:(0.0000, 269.9999, 0.0000);scale:(1.0001, 1.0000, 1.0001);group:;locked:False;hidden:False;materials:bricks+foliage;]
+[name:;collection:Golf;type:bend_cornerEdgeOpen%;position:(-2.0000, 0.0000, 1.0000);rotation:(0.0000, 179.9999, 0.0000);scale:(1.0000, 1.0000, 1.0000);group:;locked:False;hidden:False;materials:bricks+foliage;]
+[name:;collection:Golf;type:side;position:(-2.0000, 0.0000, 2.0000);rotation:(0.0000, 179.9999, 0.0000);scale:(1.0000, 1.0000, 1.0000);group:;locked:False;hidden:False;materials:bricks+foliage;]
+[name:;collection:Golf;type:corner;position:(-2.0000, 0.0000, 3.0000);rotation:(0.0000, 90.0001, 0.0000);scale:(1.0000, 1.0000, 1.0000);group:;locked:False;hidden:False;materials:bricks+foliage;]

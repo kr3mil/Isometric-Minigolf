@@ -1,0 +1,11 @@
+# Created by Kenney (www.kenney.nl)
+
+newmtl bricks
+Kd 1 0.392 0.306
+
+newmtl foliage
+Kd 0 0.655 0.486
+
+newmtl dark
+Kd 0.224 0.235 0.275
+

@@ -1,0 +1,17 @@
+# Made using Asset Forge (2.0 preview-1b)
+
+:materials
+
+[name:bricks;color:RGBA(1.000, 0.392, 0.306, 1.000);shader:Standard;valueA:0.35;valueB:0;]
+[name:foliage;color:RGBA(0.000, 0.655, 0.486, 1.000);shader:Standard;valueA:0.35;valueB:0;]
+[name:dark;color:RGBA(0.224, 0.235, 0.275, 1.000);shader:Standard;valueA:0.35;valueB:0;]
+
+:models
+
+[name:;collection:Golf;type:end;position:(0.0000, 0.0000, 0.0000);rotation:(0.0000, 0.0000, 0.0000);scale:(1.0000, 1.0000, 1.0000);group:;locked:False;hidden:False;materials:bricks+foliage;]
+[name:;collection:Golf;type:straight;position:(0.0000, 0.0000, 1.0000);rotation:(0.0000, 0.0000, 0.0000);scale:(1.0000, 1.0000, 1.0000);group:;locked:False;hidden:False;materials:bricks+foliage;]
+[name:;collection:Golf;type:straight;position:(0.0000, 0.0000, 2.0000);rotation:(0.0000, 0.0000, 0.0000);scale:(1.0000, 1.0000, 1.0000);group:;locked:False;hidden:False;materials:bricks+foliage;]
+[name:;collection:Golf;type:bend;position:(0.0000, 0.0000, 3.0000);rotation:(0.0000, 0.0000, 0.0000);scale:(1.0000, 1.0000, 1.0000);group:;locked:False;hidden:False;materials:bricks+foliage;]
+[name:;collection:Golf;type:straight;position:(1.0000, 0.0000, 3.0000);rotation:(0.0000, 90.0000, 0.0000);scale:(1.0000, 1.0000, 1.0000);group:;locked:False;hidden:False;materials:bricks+foliage;]
+[name:;collection:Golf;type:straight;position:(2.0000, 0.0000, 3.0000);rotation:(0.0000, 90.0000, 0.0000);scale:(1.0000, 1.0000, 1.0000);group:;locked:False;hidden:False;materials:bricks+foliage;]
+[name:;collection:Golf;type:end_hole;position:(3.0000, 0.0000, 3.0000);rotation:(0.0000, 270.0000, 0.0000);scale:(1.0000, 1.0000, 1.0000);group:;locked:False;hidden:False;materials:bricks+foliage+dark;]

@@ -7,12 +7,5 @@ public class GameState : MonoBehaviour
 {
     public static string GameVersion = "0.1";
     public static bool IsShooting = false;
-    public static bool IsMine
-    {
-        get
-        {
-            return true;
-        }
-    }
-    public static bool IsOffline = !PhotonNetwork.IsConnectedAndReady;
+    public static bool IsOffline = true;
 }

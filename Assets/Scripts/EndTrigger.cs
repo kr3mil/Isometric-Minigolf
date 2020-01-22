@@ -4,9 +4,16 @@ using UnityEngine;
 
 public class EndTrigger : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public int HoleNum;
+    private void OnTriggerStay(Collider other)
     {
-        
+        if(other.tag == "Player")
+        {
+            var script = other.GetComponent<PlayerController>();
+            if (GameState.IsShooting)
+            {
+                GameObject.Find("LevelManager").GetComponent<LevelManager>().EndHole(other.gameObject);
+            }
+        }
     }
 }

@@ -9,6 +9,10 @@ public class PlayerController : MonoBehaviour
     private Rigidbody m_RigidBody;
     [SerializeField] private float m_ShotPower = 1f;
     private int m_ShotCount;
+    private int m_TotalShotCount;
+    private Vector3 m_MousePoint;
+    private float m_IsShootingDelay = 2f;
+    private float m_IsShootingCounter;
     void Start()
     {
         Cursor.lockState = CursorLockMode.Confined;
@@ -41,7 +45,29 @@ public class PlayerController : MonoBehaviour
 
     private void LateUpdate()
     {
-        GameState.IsShooting = m_RigidBody.velocity.sqrMagnitude == 0;
+        if(m_RigidBody.velocity.sqrMagnitude == 0)
+        {
+            m_IsShootingDelay -= Time.fixedDeltaTime;
+            if(m_IsShootingDelay <= 0)
+            {
+                GameState.IsShooting = true;
+            }
+        }
+        else
+        {
+            m_IsShootingCounter = m_IsShootingDelay;
+            GameState.IsShooting = false;
+        }
+    }
+
+    public void MoveToNextHole(Transform positionOfNext)
+    {
+        m_RigidBody.isKinematic = true;
+        transform.position = positionOfNext.position;
+        m_RigidBody.isKinematic = false;
+        m_RigidBody.rotation = Quaternion.identity;
+        m_TotalShotCount += m_ShotCount;
+        m_ShotCount = 0;
     }
 
     private void GetMousePos()
@@ -51,9 +77,9 @@ public class PlayerController : MonoBehaviour
         float rayLength;
         if(groundPlane.Raycast(cameraRay, out rayLength))
         {
-            Vector3 point = cameraRay.GetPoint(rayLength);
-            Debug.DrawLine(transform.position, point, Color.blue);
-            var dir = (point - transform.position).normalized;
+            m_MousePoint = cameraRay.GetPoint(rayLength);
+            Debug.DrawLine(transform.position, m_MousePoint, Color.blue);
+            var dir = (m_MousePoint - transform.position).normalized;
             m_ShootDirection = dir;
             m_LineRenderer.enabled = true;
             m_LineRenderer.SetPosition(0, transform.position);
@@ -64,8 +90,8 @@ public class PlayerController : MonoBehaviour
     private void Shoot()
     {
         m_RigidBody.rotation = Quaternion.identity;
-        m_RigidBody.AddForce(transform.position + m_ShootDirection * m_ShotPower * 5, ForceMode.Impulse);
+        var force = new Vector3(m_ShootDirection.x, 0, m_ShootDirection.z) * m_ShotPower * 5;
+        m_RigidBody.AddForce(force, ForceMode.Impulse);
         m_ShotCount++;
-        //GameState.IsShooting = true;
     }
 }
