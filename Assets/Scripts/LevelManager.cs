@@ -8,7 +8,7 @@ public class LevelManager : MonoBehaviour
     public GameObject PlayerPrefab;
 
     public IEnumerable<Transform> SpawnPoints;
-    private int m_CurrentHole = 0;
+    [SerializeField] private int m_CurrentHole;
     private GameObject m_LevelParent;
     private void Awake()
     {
@@ -16,6 +16,10 @@ public class LevelManager : MonoBehaviour
         SpawnPoints = m_LevelParent.GetComponentsInChildren<Transform>().Where(x => x.tag == "StartPosition").Select(x => x.transform);
         SpawnPlayer();
         Debug.Log("Spawn points: " + SpawnPoints.Count());
+        #region DEBUG
+        //m_CurrentHole--;
+        //StartCoroutine(DebugEndHole());
+        #endregion
     }
 
     public void EndHole(GameObject player)
@@ -23,13 +27,24 @@ public class LevelManager : MonoBehaviour
         if ((m_CurrentHole += 1) < SpawnPoints.Count())
         {
             var script = player.GetComponent<PlayerController>();
-            script.MoveToNextHole(SpawnPoints.ElementAt(m_CurrentHole));
+            script.MoveToNextHole(SpawnPoints.ElementAt(m_CurrentHole), true);
         }
         else
         {
             Debug.Log("LAST HOLE");
         }
         
+    }
+
+    public void ResetHole(GameObject player)
+    {
+        player.GetComponent<PlayerController>().MoveToNextHole(SpawnPoints.ElementAt(m_CurrentHole), false);
+    }
+
+    private IEnumerator DebugEndHole()
+    {
+        yield return new WaitForSeconds(1);
+        EndHole(GameObject.FindWithTag("Player"));
     }
 
     private void SpawnPlayer()

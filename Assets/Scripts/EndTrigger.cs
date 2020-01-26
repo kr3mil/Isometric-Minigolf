@@ -5,6 +5,13 @@ using UnityEngine;
 public class EndTrigger : MonoBehaviour
 {
     public int HoleNum;
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.tag == "Player")
+        {
+            other.GetComponent<PlayerController>().SetCollisions(false);
+        }
+    }
     private void OnTriggerStay(Collider other)
     {
         if(other.tag == "Player")
@@ -15,5 +22,9 @@ public class EndTrigger : MonoBehaviour
                 GameObject.Find("LevelManager").GetComponent<LevelManager>().EndHole(other.gameObject);
             }
         }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        Debug.Log(other.name);
     }
 }

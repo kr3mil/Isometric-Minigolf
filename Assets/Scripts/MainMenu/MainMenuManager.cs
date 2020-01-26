@@ -32,7 +32,6 @@ public class MainMenuManager : MonoBehaviourPunCallbacks
     public void Muliplayer()
     {
         GameState.IsOffline = false;
-        // TODO connect to multiplayer using photon
     }
     // Exit game
     public void ExitGame() => Application.Quit();

@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
     private Vector3 m_MousePoint;
     private float m_IsShootingDelay = 2f;
     private float m_IsShootingCounter;
+    private bool m_CollisionsEnabled;
     void Start()
     {
         Cursor.lockState = CursorLockMode.Confined;
@@ -20,6 +21,7 @@ public class PlayerController : MonoBehaviour
         m_LineRenderer = GetComponent<LineRenderer>();
         m_LineRenderer.positionCount = 2;
         m_RigidBody = GetComponent<Rigidbody>();
+        SetCollisions(false);
     }
 
     void Update()
@@ -30,7 +32,7 @@ public class PlayerController : MonoBehaviour
 
             if (Input.GetMouseButtonDown(0))
             {
-                Shoot();
+                StartCoroutine(Shoot());
             }
             else if (Input.mouseScrollDelta.y != 0 && !Input.GetKey(KeyCode.LeftControl))
             {
@@ -40,6 +42,11 @@ public class PlayerController : MonoBehaviour
         else
         {
             m_LineRenderer.enabled = false;
+        }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            GameObject.Find("LevelManager").GetComponent<LevelManager>().ResetHole(gameObject);
         }
     }
 
@@ -60,14 +67,31 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void MoveToNextHole(Transform positionOfNext)
+    public void MoveToNextHole(Transform positionOfNext, bool resetShots)
     {
         m_RigidBody.isKinematic = true;
         transform.position = positionOfNext.position;
         m_RigidBody.isKinematic = false;
         m_RigidBody.rotation = Quaternion.identity;
-        m_TotalShotCount += m_ShotCount;
-        m_ShotCount = 0;
+        if (resetShots)
+        {
+            m_TotalShotCount += m_ShotCount;
+            m_ShotCount = 0;
+        }
+        SetCollisions(true);
+    }
+
+    public void SetCollisions(bool val)
+    {
+        var col = GetComponent<Collider>();
+        foreach(var otherPlayer in GameObject.FindGameObjectsWithTag("Player"))
+        {
+            if(otherPlayer != gameObject)
+            {
+                Physics.IgnoreCollision(col, otherPlayer.GetComponent<Collider>(), val);
+            }
+        }
+        m_CollisionsEnabled = val;
     }
 
     private void GetMousePos()
@@ -87,11 +111,16 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void Shoot()
+    private IEnumerator Shoot()
     {
         m_RigidBody.rotation = Quaternion.identity;
         var force = new Vector3(m_ShootDirection.x, 0, m_ShootDirection.z) * m_ShotPower * 5;
         m_RigidBody.AddForce(force, ForceMode.Impulse);
         m_ShotCount++;
+        if (!m_CollisionsEnabled)
+        {
+            yield return new WaitForSeconds(.3f);
+            SetCollisions(true);
+        }
     }
 }

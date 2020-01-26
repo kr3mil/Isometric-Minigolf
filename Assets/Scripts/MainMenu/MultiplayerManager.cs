@@ -1,10 +1,12 @@
-﻿using System.Collections;
+﻿using Photon.Pun;
+using Photon.Realtime;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MultiplayerManager : MonoBehaviour
+public class MultiplayerManager : MonoBehaviourPunCallbacks
 {
     public Button QuickPlaySearchButton;
     public TMP_InputField NameInput;
@@ -12,11 +14,6 @@ public class MultiplayerManager : MonoBehaviour
     private void Start()
     {
         SetPlayerName(null);
-    }
-
-    private void Update()
-    {
-
     }
 
     public void SetPlayerName(string name)
@@ -33,7 +30,10 @@ public class MultiplayerManager : MonoBehaviour
     // Quick play
     public void QuickPlay()
     {
-
+        if (!GameState.IsOffline)
+        {
+            PhotonNetwork.JoinRandomRoom();
+        }
     }
 
     // Server browser selection in menu
@@ -41,4 +41,25 @@ public class MultiplayerManager : MonoBehaviour
     {
 
     }
+
+    #region PhotonOverrides
+    public override void OnJoinRandomFailed(short returnCode, string message)
+    {
+        Debug.Log("No clients are waiting for an opponent, creating a new room");
+
+        PhotonNetwork.CreateRoom(null, new RoomOptions { MaxPlayers = 4 });
+    }
+
+    public override void OnJoinedRoom()
+    {
+        Debug.Log("Client successfully joined a room");
+
+        // TODO
+    }
+
+    public override void OnPlayerEnteredRoom(Player newPlayer)
+    {
+        PhotonNetwork.LoadLevel("Course1");
+    }
+    #endregion
 }
