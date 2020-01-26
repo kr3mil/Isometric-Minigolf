@@ -18,8 +18,8 @@ public class LevelManager : MonoBehaviour
         SpawnPlayer();
         Debug.Log("Spawn points: " + SpawnPoints.Count());
         #region DEBUG
-        //m_CurrentHole--;
-        //StartCoroutine(DebugEndHole());
+        m_CurrentHole--;
+        StartCoroutine(DebugEndHole());
         #endregion
     }
 
