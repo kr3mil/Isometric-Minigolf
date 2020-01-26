@@ -59,6 +59,7 @@ public class MultiplayerManager : MonoBehaviourPunCallbacks
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
+        GameState.IsOffline = false;
         PhotonNetwork.LoadLevel("Course1");
     }
     #endregion

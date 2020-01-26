@@ -5,9 +5,15 @@ using UnityEngine;
 public class PositionManager : MonoBehaviour
 {
     private Vector3 m_CurrentPosition;
+    private PlayerController m_PlayerController;
+
+    private void Start()
+    {
+        m_PlayerController = GetComponent<PlayerController>();
+    }
     void FixedUpdate()
     {
-        if (GameState.IsShooting)
+        if (m_PlayerController.IsShooting)
         {
             m_CurrentPosition = transform.position;
         }

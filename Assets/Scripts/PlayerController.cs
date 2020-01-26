@@ -1,9 +1,12 @@
-﻿using System.Collections;
+﻿using Photon.Pun;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviourPun
 {
+    public bool IsShooting = false;
+
     private LineRenderer m_LineRenderer;
     private Vector3 m_ShootDirection;
     private Rigidbody m_RigidBody;
@@ -13,7 +16,6 @@ public class PlayerController : MonoBehaviour
     private Vector3 m_MousePoint;
     private float m_IsShootingDelay = 2f;
     private float m_IsShootingCounter;
-    private bool m_CollisionsEnabled;
     void Start()
     {
         Cursor.lockState = CursorLockMode.Confined;
@@ -21,32 +23,34 @@ public class PlayerController : MonoBehaviour
         m_LineRenderer = GetComponent<LineRenderer>();
         m_LineRenderer.positionCount = 2;
         m_RigidBody = GetComponent<Rigidbody>();
-        SetCollisions(false);
     }
 
     void Update()
     {
-        if (GameState.IsShooting)
+        if (GameState.IsOffline || photonView.IsMine)
         {
-            GetMousePos();
-
-            if (Input.GetMouseButtonDown(0))
+            if (IsShooting)
             {
-                StartCoroutine(Shoot());
-            }
-            else if (Input.mouseScrollDelta.y != 0 && !Input.GetKey(KeyCode.LeftControl))
-            {
-                m_ShotPower = Mathf.Clamp(m_ShotPower += Input.mouseScrollDelta.y * .1f, .1f, 5f);
-            }
-        }
-        else
-        {
-            m_LineRenderer.enabled = false;
-        }
+                GetMousePos();
 
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            GameObject.Find("LevelManager").GetComponent<LevelManager>().ResetHole(gameObject);
+                if (Input.GetMouseButtonDown(0))
+                {
+                    Shoot();
+                }
+                else if (Input.mouseScrollDelta.y != 0 && !Input.GetKey(KeyCode.LeftControl))
+                {
+                    m_ShotPower = Mathf.Clamp(m_ShotPower += Input.mouseScrollDelta.y * .1f, .1f, 5f);
+                }
+            }
+            else
+            {
+                m_LineRenderer.enabled = false;
+            }
+
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                GameObject.Find("LevelManager").GetComponent<LevelManager>().ResetHole(gameObject);
+            }
         }
     }
 
@@ -57,13 +61,13 @@ public class PlayerController : MonoBehaviour
             m_IsShootingDelay -= Time.fixedDeltaTime;
             if(m_IsShootingDelay <= 0)
             {
-                GameState.IsShooting = true;
+                IsShooting = true;
             }
         }
         else
         {
             m_IsShootingCounter = m_IsShootingDelay;
-            GameState.IsShooting = false;
+            IsShooting = false;
         }
     }
 
@@ -78,20 +82,6 @@ public class PlayerController : MonoBehaviour
             m_TotalShotCount += m_ShotCount;
             m_ShotCount = 0;
         }
-        SetCollisions(true);
-    }
-
-    public void SetCollisions(bool val)
-    {
-        var col = GetComponent<Collider>();
-        foreach(var otherPlayer in GameObject.FindGameObjectsWithTag("Player"))
-        {
-            if(otherPlayer != gameObject)
-            {
-                Physics.IgnoreCollision(col, otherPlayer.GetComponent<Collider>(), val);
-            }
-        }
-        m_CollisionsEnabled = val;
     }
 
     private void GetMousePos()
@@ -111,16 +101,11 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private IEnumerator Shoot()
+    private void Shoot()
     {
         m_RigidBody.rotation = Quaternion.identity;
         var force = new Vector3(m_ShootDirection.x, 0, m_ShootDirection.z) * m_ShotPower * 5;
         m_RigidBody.AddForce(force, ForceMode.Impulse);
         m_ShotCount++;
-        if (!m_CollisionsEnabled)
-        {
-            yield return new WaitForSeconds(.3f);
-            SetCollisions(true);
-        }
     }
 }

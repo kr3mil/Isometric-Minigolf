@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using Photon.Pun;
 
 public class LevelManager : MonoBehaviour
 {
@@ -49,6 +50,6 @@ public class LevelManager : MonoBehaviour
 
     private void SpawnPlayer()
     {
-        var player = Instantiate(PlayerPrefab, SpawnPoints.ElementAt(0).position, Quaternion.identity);
+        var player = GameState.IsOffline ? GameObject.Instantiate(PlayerPrefab, SpawnPoints.ElementAt(0).position, Quaternion.identity) : PhotonNetwork.Instantiate(PlayerPrefab.name, SpawnPoints.ElementAt(0).position, Quaternion.identity);
     }
 }

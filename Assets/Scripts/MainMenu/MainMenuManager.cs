@@ -50,7 +50,7 @@ public class MainMenuManager : MonoBehaviourPunCallbacks
             {
                 ConnectionText.color = Color.green;
                 ConnectionText.text = "Connected";
-                GameState.IsOffline = false;
+                //GameState.IsOffline = false;
                 ReconnectButton.SetActive(false);
             }
             else
@@ -58,7 +58,7 @@ public class MainMenuManager : MonoBehaviourPunCallbacks
                 ConnectionText.color = Color.red;
                 ConnectionText.text = "Disconnected";
                 MultiplayerButton.interactable = false;
-                GameState.IsOffline = true;
+                //GameState.IsOffline = true;
                 ReconnectButton.SetActive(true);
             }
         }
@@ -66,7 +66,7 @@ public class MainMenuManager : MonoBehaviourPunCallbacks
         {
             ConnectionText.color = Color.white;
             ConnectionText.text = "Connecting";
-            GameState.IsOffline = true;
+            //GameState.IsOffline = true;
             ReconnectButton.SetActive(false);
         }
     }

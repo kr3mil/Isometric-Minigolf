@@ -43,5 +43,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f39796bf12e7c040a5b224c4f5e544c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerPrefab: {fileID: 5171923528790146427, guid: e04e171c95ea843489543ce0f0573dac,
+  PlayerPrefab: {fileID: 5171923528790146427, guid: 2a91ce010cd28024591bf6ce3a608a0a,
     type: 3}
+  m_CurrentHole: 0
